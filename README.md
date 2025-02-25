@@ -28,7 +28,6 @@ Amazon Kindle アプリを起動して、同期ボタン押して、書誌情報
 ```
 $ export BOOKLOG_ID="xxxxxxxx"
 $ export BOOKLOG_PASSWORD="yyyyyyyyyyyyy"
-$ export BOOKLOG_EMAIL="zzz@example.com"
 $ cd kindle-to-booklog
 $ node app/main.js
 ```
