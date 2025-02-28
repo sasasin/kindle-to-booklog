@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import xml2js from 'xml2js';
+import Database from 'better-sqlite3';
 import { chromium } from 'playwright';
 
 const BOOKLOG_ID = process.env.BOOKLOG_ID;
@@ -45,8 +46,25 @@ const getAsinListFromKindleXml = async() => {
 
 // for macOS Kindle app
 const getAsinListFromKindleSqliteDB = async() => {
-  // そのうち実装するかもしれない
-  return ["B0DTP53KBL", "B0DTK2DNXF", "B0BQXDXV8B"];
+
+  const KINDLE_SQLITE3_PATH = process.env.HOME + '/Library/Containers/com.amazon.Lassen/Data/Library/Protected/BookData.sqlite';
+
+  const database = new Database(KINDLE_SQLITE3_PATH);
+  database.pragma('journal_mode = WAL');
+
+  const statement = database.prepare('SELECT substring(zbook.zbookid, 3, 10) as ASIN FROM zbook ORDER BY zbook.zrawlastaccesstime DESC LIMIT 99');
+
+  const books = statement.all();
+
+  // ASIN だけのリストを作る
+  const AsinList = [];
+  books.forEach(book => {
+    AsinList.push(book.ASIN);
+  });
+
+  console.log(AsinList);
+
+  return AsinList;
 }
 
 const addBooksToBooklog = async (AsinList) => {

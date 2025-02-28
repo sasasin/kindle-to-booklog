@@ -20,5 +20,8 @@
     "@playwright/test": "^1.50.1",
     "@types/node": "^22.13.5",
     "xml2js": "^0.6.2"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.8.1"
   }
 }

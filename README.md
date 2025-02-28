@@ -13,6 +13,7 @@ Amazon Kindle アプリをインストールして、ログインしてくださ
 ```
 $ git clone git@github.com:sasasin/kindle-to-booklog.git
 $ npm install
+$ npx playwright install
 ```
 
 # つかいかた
