@@ -82,7 +82,7 @@ const addBooksToBooklog = async (AsinList) => {
   await page.getByRole('textbox', { name: 'パスワード' }).fill(BOOKLOG_PASSWORD);
 
   await page.getByRole('button', { name: 'ログイン' }).click();
-  await page.waitForURL('https://booklog.jp/')
+  await page.waitForURL('https://booklog.jp/home')
 
   await page.goto('https://booklog.jp/input');
   await page.getByRole('textbox', { name: 'ISBN/ASINコード' }).click();
