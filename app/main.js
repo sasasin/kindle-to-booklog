@@ -1,10 +1,9 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import xml2js from 'xml2js';
 import Database from 'better-sqlite3';
 import { chromium } from 'playwright';
 
-const BOOKLOG_ID = process.env.BOOKLOG_ID;
-const BOOKLOG_PASSWORD = process.env.BOOKLOG_PASSWORD
+const SESSION_FILE = 'session.json';
 
 // for Windows Kindle app
 const getAsinListFromKindleXml = async() => {
@@ -68,23 +67,35 @@ const getAsinListFromKindleSqliteDB = async() => {
 }
 
 const addBooksToBooklog = async (AsinList) => {
+  const BROWSER_CHANNEL = process.env.BROWSER_CHANNEL || 'chrome';
   const browser = await chromium.launch({
-    headless: false
+    headless: false,
+    channel: BROWSER_CHANNEL
   });
-  const context = await browser.newContext();
+
+  // セッションファイルが存在する場合は読み込む
+  const contextOptions = existsSync(SESSION_FILE)
+    ? { storageState: SESSION_FILE }
+    : {};
+  const context = await browser.newContext({
+    ...contextOptions,
+    locale: 'ja-JP',
+    viewport: { width: 1280, height: 800 },
+  });
   const page = await context.newPage();
-  await page.goto('https://booklog.jp/logout');
-  await page.getByRole('link', { name: 'ログイン', exact: true }).click();
-  await page.waitForURL('https://booklog.jp/login')
-  await page.getByRole('textbox', { name: 'ブクログID' }).click();
-  await page.getByRole('textbox', { name: 'ブクログID' }).fill(BOOKLOG_ID);
-  await page.getByRole('textbox', { name: 'パスワード' }).click();
-  await page.getByRole('textbox', { name: 'パスワード' }).fill(BOOKLOG_PASSWORD);
 
-  await page.getByRole('button', { name: 'ログイン' }).click();
-  await page.waitForURL('https://booklog.jp/home')
-
+  // ログインをスキップして直接 /input へ
   await page.goto('https://booklog.jp/input');
+
+  // セッション切れまたは初回: ログインページにリダイレクトされた場合
+  if (!page.url().startsWith('https://booklog.jp/input')) {
+    console.log('ブラウザでブクログにログインしてください（reCAPTCHA を解いてログインボタンを押してください）');
+    await page.waitForURL('https://booklog.jp/home', { timeout: 300000 });
+    // セッションを保存
+    await context.storageState({ path: SESSION_FILE });
+    await page.goto('https://booklog.jp/input');
+  }
+
   await page.getByRole('textbox', { name: 'ISBN/ASINコード' }).click();
   // ASINを改行文字\n区切りで列挙する
   await page.getByRole('textbox', { name: 'ISBN/ASINコード' }).fill(AsinList.join('\n'));
