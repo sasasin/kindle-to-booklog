@@ -68,14 +68,19 @@ const getAsinListFromKindleSqliteDB = async() => {
 
 const addBooksToBooklog = async (AsinList) => {
   const browser = await chromium.launch({
-    headless: false
+    headless: false,
+    channel: 'chrome'
   });
 
   // セッションファイルが存在する場合は読み込む
   const contextOptions = existsSync(SESSION_FILE)
     ? { storageState: SESSION_FILE }
     : {};
-  const context = await browser.newContext(contextOptions);
+  const context = await browser.newContext({
+    ...contextOptions,
+    locale: 'ja-JP',
+    viewport: { width: 1280, height: 800 },
+  });
   const page = await context.newPage();
 
   // ログインをスキップして直接 /input へ
