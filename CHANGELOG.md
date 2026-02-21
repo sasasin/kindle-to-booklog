@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.0.5](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.4...v0.0.5) - 2026-02-21
+- chore(deps): Bump tar-fs from 2.1.2 to 2.1.4 by @dependabot[bot] in https://github.com/sasasin/kindle-to-booklog/pull/24
+
 ## [v0.0.4](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.3...v0.0.4) - 2026-02-21
 - chore(deps): update dependency @types/node to v24 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/17
 - chore(deps): update actions/checkout action to v6 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/18
