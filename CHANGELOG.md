@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.0.3](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.2...v0.0.3) - 2026-02-21
+- Update dependency @playwright/test to v1.56.1 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/15
+- feat: Add CLAUDE.md for AI assistant guidance by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/21
+- feat: reCAPTCHA 対応 — セッション保存・Chrome 起動・ブラウザ切り替え対応 by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/22
+
 ## [v0.0.2](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.1...v0.0.2) - 2025-09-26
 - ログイン直後のURLが変化していた by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/12
 - Update actions/checkout action to v5 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/11
