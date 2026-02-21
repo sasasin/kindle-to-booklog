@@ -1,10 +1,9 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import xml2js from 'xml2js';
 import Database from 'better-sqlite3';
 import { chromium } from 'playwright';
 
-const BOOKLOG_ID = process.env.BOOKLOG_ID;
-const BOOKLOG_PASSWORD = process.env.BOOKLOG_PASSWORD
+const SESSION_FILE = 'session.json';
 
 // for Windows Kindle app
 const getAsinListFromKindleXml = async() => {
