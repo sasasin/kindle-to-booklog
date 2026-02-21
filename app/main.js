@@ -67,9 +67,10 @@ const getAsinListFromKindleSqliteDB = async() => {
 }
 
 const addBooksToBooklog = async (AsinList) => {
+  const BROWSER_CHANNEL = process.env.BROWSER_CHANNEL || 'chrome';
   const browser = await chromium.launch({
     headless: false,
-    channel: 'chrome'
+    channel: BROWSER_CHANNEL
   });
 
   // セッションファイルが存在する場合は読み込む
