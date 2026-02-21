@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.0.4](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.3...v0.0.4) - 2026-02-21
+- chore(deps): update dependency @types/node to v24 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/17
+- chore(deps): update actions/checkout action to v6 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/18
+- chore(deps): update dependency @playwright/test to v1.58.2 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/20
+- chore(deps): update dependency better-sqlite3 to v12.6.2 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/19
+
 ## [v0.0.3](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.2...v0.0.3) - 2026-02-21
 - Update dependency @playwright/test to v1.56.1 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/15
 - feat: Add CLAUDE.md for AI assistant guidance by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/21
