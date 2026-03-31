@@ -90,7 +90,7 @@ const addBooksToBooklog = async (AsinList) => {
   // セッション切れまたは初回: ログインページにリダイレクトされた場合
   if (!page.url().startsWith('https://booklog.jp/input')) {
     console.log('ブラウザでブクログにログインしてください（reCAPTCHA を解いてログインボタンを押してください）');
-    await page.waitForURL('https://booklog.jp/home', { timeout: 300000 });
+    await page.waitForURL('https://booklog.jp/input', { timeout: 300000 });
     // セッションを保存
     await context.storageState({ path: SESSION_FILE });
     await page.goto('https://booklog.jp/input');
