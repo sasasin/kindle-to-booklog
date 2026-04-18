@@ -1,5 +1,14 @@
 # Changelog
 
+## [v0.0.6](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.5...v0.0.6) - 2026-04-18
+- fix: ログイン後のリダイレクト先を booklog/input に修正 by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/28
+- feat: renovate に minimumReleaseAge 3 days を設定 by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/30
+- chore(deps): update dependency @types/node to v24.12.0 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/26
+- chore(deps): update dependency better-sqlite3 to v12.8.0 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/27
+- Migrate Kindle to Booklog to a Python package with offline tests by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/34
+- Update dependency python to 3.14 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/35
+- Update actions/upload-artifact action to v7 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/36
+
 ## [v0.0.5](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.4...v0.0.5) - 2026-02-21
 - chore(deps): Bump tar-fs from 2.1.2 to 2.1.4 by @dependabot[bot] in https://github.com/sasasin/kindle-to-booklog/pull/24
 
