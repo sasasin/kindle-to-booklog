@@ -5,6 +5,11 @@
 - Update GitHub Actions to pinned action versions by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/40
 - Update Songmu/tagpr digest to 9bbb945 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/41
 
+## [v0.0.7](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.6...v0.0.7) - 2026-04-18
+- Add minimal workflow permissions to test job by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/37
+- Update GitHub Actions to pinned action versions by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/40
+- Update Songmu/tagpr digest to 9bbb945 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/41
+
 ## [v0.0.6](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.5...v0.0.6) - 2026-04-18
 - fix: ログイン後のリダイレクト先を booklog/input に修正 by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/28
 - feat: renovate に minimumReleaseAge 3 days を設定 by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/30
