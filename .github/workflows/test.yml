@@ -34,7 +34,7 @@ jobs:
           uv run --group dev coverage xml
 
       - name: Upload coverage artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-report
           path: |
