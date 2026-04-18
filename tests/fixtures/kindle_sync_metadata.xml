@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<response>
+  <add_update_list>
+    <meta_data>
+      <ASIN>B000000005</ASIN>
+      <purchase_date>2024-02-11T10:30:00Z</purchase_date>
+    </meta_data>
+    <meta_data>
+      <ASIN>B000000003</ASIN>
+      <purchase_date>2024-01-10T08:00:00Z</purchase_date>
+    </meta_data>
+    <meta_data>
+      <ASIN>B000000004</ASIN>
+      <purchase_date></purchase_date>
+    </meta_data>
+    <meta_data>
+      <ASIN>B000000001</ASIN>
+      <purchase_date>2023-12-25T12:00:00Z</purchase_date>
+    </meta_data>
+    <meta_data>
+      <ASIN>B000000002</ASIN>
+      <purchase_date>2024-01-01T00:00:00Z</purchase_date>
+    </meta_data>
+  </add_update_list>
+</response>

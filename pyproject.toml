@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "kindle-to-booklog"
+version = "0.1.0"
+description = "Register recently purchased Kindle books on Booklog."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "playwright>=1.50,<2",
+]
+
+[project.scripts]
+kindle-to-booklog = "kindle_to_booklog.cli:main"
+
+[dependency-groups]
+dev = [
+  "coverage[toml]>=7.10,<8",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/kindle_to_booklog"]
+
+[tool.coverage.run]
+branch = true
+source = ["src/kindle_to_booklog"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+[tool.coverage.xml]
+output = "coverage.xml"
+
+[tool.uv]
+package = true
