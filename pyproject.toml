@@ -18,6 +18,7 @@ kindle-to-booklog = "kindle_to_booklog.cli:main"
 [dependency-groups]
 dev = [
   "coverage[toml]>=7.10,<8",
+  "ruff>=0.11,<1",
 ]
 
 [tool.hatch.build.targets.wheel]
