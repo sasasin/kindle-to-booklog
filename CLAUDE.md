@@ -24,7 +24,11 @@ uv run kindle-to-booklog
 `tests/` に `unittest` ベースのテストがある。Kindle の実ファイルや `booklog.jp` にはアクセスせず、fixture の XML / SQL と Playwright のフェイク実装で検証する。
 
 ```bash
-uv run python -m unittest discover -s tests
+uv sync --group dev
+uv run --group dev coverage run -m unittest discover -s tests
+uv run --group dev coverage report -m
+uv run --group dev coverage html
+uv run --group dev coverage xml
 ```
 
 ## Architecture

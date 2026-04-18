@@ -47,5 +47,11 @@ $ BROWSER_CHANNEL=msedge uv run kindle-to-booklog
 ローカルの Kindle XML / SQLite や `booklog.jp` に依存しないテストを `tests/` に用意しています。fixture の XML と SQL、Playwright のフェイク実装を使うので、オフラインでも実行できます。
 
 ```
-$ uv run python -m unittest discover -s tests
+$ uv sync --group dev
+$ uv run --group dev coverage run -m unittest discover -s tests
+$ uv run --group dev coverage report -m
+$ uv run --group dev coverage html
+$ uv run --group dev coverage xml
 ```
+
+HTML レポートは `htmlcov/index.html`、XML レポートは `coverage.xml` に出力されます。
