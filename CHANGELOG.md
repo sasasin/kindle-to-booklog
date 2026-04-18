@@ -4,6 +4,12 @@
 - Add minimal workflow permissions to test job by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/37
 - Update GitHub Actions to pinned action versions by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/40
 - Update Songmu/tagpr digest to 9bbb945 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/41
+- Add Codex guidance for Python formatting and tests by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/44
+
+## [v0.0.7](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.6...v0.0.7) - 2026-04-18
+- Add minimal workflow permissions to test job by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/37
+- Update GitHub Actions to pinned action versions by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/40
+- Update Songmu/tagpr digest to 9bbb945 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/41
 
 ## [v0.0.7](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.6...v0.0.7) - 2026-04-18
 - Add minimal workflow permissions to test job by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/37
