@@ -13,7 +13,10 @@ class CliTests(unittest.TestCase):
         fake_factory = object()
         with (
             patch("kindle_to_booklog.cli.sys.platform", "win32"),
-            patch("kindle_to_booklog.cli.get_asin_list_from_kindle_xml", return_value=["B1", "B2"]) as get_xml,
+            patch(
+                "kindle_to_booklog.cli.get_asin_list_from_kindle_xml",
+                return_value=["B1", "B2"],
+            ) as get_xml,
             patch("kindle_to_booklog.cli.add_books_to_booklog") as add_books,
             patch("kindle_to_booklog.cli.sync_playwright", fake_factory),
             redirect_stdout(io.StringIO()) as stdout,

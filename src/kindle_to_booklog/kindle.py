@@ -51,7 +51,10 @@ def get_asin_list_from_kindle_xml() -> list[str]:
     if not userprofile:
         raise RuntimeError("USERPROFILE is not set")
 
-    kindle_xml_path = Path(userprofile) / "AppData/Local/Amazon/Kindle/Cache/KindleSyncMetadataCache.xml"
+    kindle_xml_path = (
+        Path(userprofile)
+        / "AppData/Local/Amazon/Kindle/Cache/KindleSyncMetadataCache.xml"
+    )
     return load_asins_from_xml_path(kindle_xml_path)
 
 
@@ -81,5 +84,8 @@ def get_asin_list_from_kindle_sqlite_db() -> list[str]:
     if not home:
         raise RuntimeError("HOME is not set")
 
-    kindle_sqlite_path = Path(home) / "Library/Containers/com.amazon.Lassen/Data/Library/Protected/BookData.sqlite"
+    kindle_sqlite_path = (
+        Path(home)
+        / "Library/Containers/com.amazon.Lassen/Data/Library/Protected/BookData.sqlite"
+    )
     return load_asins_from_sqlite_path(kindle_sqlite_path)

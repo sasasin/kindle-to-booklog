@@ -1,0 +1,132 @@
+name: ruff
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  checks: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  ruff:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6.8.0
+
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: "3.14"
+
+      - name: Sync dependencies
+        run: uv sync --group dev
+
+      - name: Run ruff with fixes
+        run: |
+          uv run --group dev ruff check . --fix
+          uv run --group dev ruff format .
+
+      - name: Capture ruff diff
+        id: diff
+        shell: bash
+        run: |
+          if git diff --quiet --exit-code; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          git diff -- . > ruff.patch
+
+      - name: Update PR with ruff suggestion
+        if: github.event_name == 'pull_request'
+        continue-on-error: true
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        env:
+          HAS_CHANGES: ${{ steps.diff.outputs.has_changes }}
+        with:
+          script: |
+            const fs = require("fs");
+
+            const marker = "<!-- codex-ruff-suggestion -->";
+            const issue_number = context.issue.number;
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number,
+              per_page: 100,
+            });
+
+            const existing = comments.data.find(
+              (comment) =>
+                comment.user?.type === "Bot" && comment.body?.includes(marker),
+            );
+
+            if (process.env.HAS_CHANGES !== "true") {
+              if (existing) {
+                await github.rest.issues.deleteComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: existing.id,
+                });
+              }
+              return;
+            }
+
+            let diff = fs.readFileSync("ruff.patch", "utf8");
+            const maxLength = 60_000;
+            const truncated = diff.length > maxLength;
+            if (truncated) {
+              diff = `${diff.slice(0, maxLength)}\n... diff truncated ...\n`;
+            }
+
+            const body = [
+              marker,
+              "Ruff found auto-fixable changes for this pull request.",
+              "",
+              "Run these commands locally and push the result:",
+              "",
+              "```bash",
+              "uv run --group dev ruff check . --fix",
+              "uv run --group dev ruff format .",
+              "```",
+              "",
+              "Suggested diff:",
+              "",
+              "```diff",
+              diff,
+              "```",
+              truncated
+                ? "The diff was truncated to fit within GitHub comment limits."
+                : "",
+            ].join("\n");
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+              return;
+            }
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number,
+              body,
+            });
+
+      - name: Fail if ruff changed files
+        if: steps.diff.outputs.has_changes == 'true'
+        run: |
+          echo "Ruff produced changes. Apply the suggested diff from the workflow comment."
+          exit 1
