@@ -1,0 +1,42 @@
+name: test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: astral-sh/setup-uv@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Sync dependencies
+        run: uv sync --group dev
+
+      - name: Run tests with coverage
+        run: uv run --group dev coverage run -m unittest discover -s tests
+
+      - name: Show coverage summary
+        run: uv run --group dev coverage report -m
+
+      - name: Generate coverage reports
+        run: |
+          uv run --group dev coverage html
+          uv run --group dev coverage xml
+
+      - name: Upload coverage artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: |
+            coverage.xml
+            htmlcov/
