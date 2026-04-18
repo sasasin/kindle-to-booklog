@@ -1,6 +1,12 @@
 
+# Python
+__pycache__/
+*.py[cod]
+.python-version
+.venv/
+venv/
+
 # Playwright
-node_modules/
 /test-results/
 /playwright-report/
 /blob-report/
