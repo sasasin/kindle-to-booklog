@@ -41,3 +41,11 @@ $ BROWSER_CHANNEL=msedge uv run kindle-to-booklog
 **初回実行時** はブクログのログインページが表示されます。reCAPTCHA を解いて手動でログインしてください。ログイン成功後にセッションが `session.json` に保存され、次回以降はログイン操作なしで自動実行されます。
 
 セッションの有効期限が切れた場合は、再度ログインページが表示されます。同様に手動でログインしてください。
+
+# テスト
+
+ローカルの Kindle XML / SQLite や `booklog.jp` に依存しないテストを `tests/` に用意しています。fixture の XML と SQL、Playwright のフェイク実装を使うので、オフラインでも実行できます。
+
+```
+$ uv run python -m unittest discover -s tests
+```

@@ -21,7 +21,11 @@ uv run kindle-to-booklog
 
 ## Running Tests
 
-自動テストはまだ用意されていない。必要なら `uv run python -m py_compile src/kindle_to_booklog/*.py` などの軽い構文確認から始める。
+`tests/` に `unittest` ベースのテストがある。Kindle の実ファイルや `booklog.jp` にはアクセスせず、fixture の XML / SQL と Playwright のフェイク実装で検証する。
+
+```bash
+uv run python -m unittest discover -s tests
+```
 
 ## Architecture
 
