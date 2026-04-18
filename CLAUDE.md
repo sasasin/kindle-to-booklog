@@ -9,29 +9,29 @@ Kindle で購入した書籍を自動でブクログに登録するツール。P
 ## Setup
 
 ```bash
-uv tool install playwright
-playwright install chrome
+uv sync
+uv run playwright install chrome
 ```
 
 ## Running the App
 
 ```bash
-./main.py
+uv run kindle-to-booklog
 ```
 
 ## Running Tests
 
-自動テストはまだ用意されていない。必要なら `uv run python -m py_compile main.py` などの軽い構文確認から始める。
+自動テストはまだ用意されていない。必要なら `uv run python -m py_compile src/kindle_to_booklog/*.py` などの軽い構文確認から始める。
 
 ## Architecture
 
-`main.py` が唯一のエントリポイント。`uv run` 用の shebang と inline script metadata を使用。
+`src/kindle_to_booklog/` に実装本体を置く `src` レイアウトを採用。実行エントリポイントは `kindle_to_booklog.cli:main` で、`uv run kindle-to-booklog` から起動する。
 
 処理フローは以下の3ステップ:
 
 1. **Kindle から ASIN リストを取得** — OS によって異なる2つの実装がある:
-   - Windows: `getAsinListFromKindleXml()` — Kindle アプリのキャッシュ XML (`KindleSyncMetadataCache.xml`) をパース
-   - macOS: `getAsinListFromKindleSqliteDb()` — Kindle アプリの SQLite DB (`BookData.sqlite`) を `sqlite3` で読み込む
+   - Windows: `get_asin_list_from_kindle_xml()` — Kindle アプリのキャッシュ XML (`KindleSyncMetadataCache.xml`) をパース
+   - macOS: `get_asin_list_from_kindle_sqlite_db()` — Kindle アプリの SQLite DB (`BookData.sqlite`) を `sqlite3` で読み込む
    - 取得対象は購入日の新しい順に最大99冊
 
 2. **ブクログにログイン・登録** — `add_books_to_booklog()` で Playwright の Chromium を headless=false で起動し、ブクログの一括登録フォームに ASIN を改行区切りで入力して登録する。読書状況は「積読」(4) で登録される。

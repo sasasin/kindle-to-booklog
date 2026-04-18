@@ -1,11 +1,3 @@
-#!/usr/bin/env -S uv run 
-# /// script
-# requires-python = ">=3.11"
-# dependencies = [
-#   "playwright>=1.50,<2",
-# ]
-# ///
-
 from __future__ import annotations
 
 import os
@@ -146,7 +138,3 @@ def main() -> int:
 
     add_books_to_booklog(asin_list)
     return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())

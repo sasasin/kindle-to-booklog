@@ -12,8 +12,9 @@ Amazon Kindle アプリをインストールして、ログインしてくださ
 
 ```
 $ git clone git@github.com:sasasin/kindle-to-booklog.git
-$ uv tool install playwright
-$ playwright install chrome
+$ cd kindle-to-booklog
+$ uv sync
+$ uv run playwright install chrome
 ```
 
 # つかいかた
@@ -27,15 +28,14 @@ Amazon Kindle アプリを起動して、同期ボタン押して、書誌情報
 以下を実行してください。Chrome が起動して、Kindle で購入日の新しい99冊をブクログに登録します。
 
 ```
-$ cd kindle-to-booklog
-$ ./main.py
+$ uv run kindle-to-booklog
 ```
 
 `BROWSER_CHANNEL` 環境変数でブラウザを指定できます（省略時は `chrome`）。指定できる値は `chrome` / `msedge` など Playwright が対応しているチャンネル名です。
 
 ```
 # Edge で起動する場合
-$ BROWSER_CHANNEL=msedge ./main.py
+$ BROWSER_CHANNEL=msedge uv run kindle-to-booklog
 ```
 
 **初回実行時** はブクログのログインページが表示されます。reCAPTCHA を解いて手動でログインしてください。ログイン成功後にセッションが `session.json` に保存され、次回以降はログイン操作なしで自動実行されます。
