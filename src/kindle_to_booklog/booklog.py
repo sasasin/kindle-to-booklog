@@ -41,7 +41,9 @@ def add_books_to_booklog(
 
             # セッション切れまたは初回: ログインページにリダイレクトされた場合
             if not page.url.startswith(booklog_input_url):
-                print("ブラウザでブクログにログインしてください（reCAPTCHA を解いてログインボタンを押してください）")
+                print(
+                    "ブラウザでブクログにログインしてください（reCAPTCHA を解いてログインボタンを押してください）"
+                )
                 page.wait_for_url(booklog_input_url, timeout=300_000)
                 # セッションを保存
                 context.storage_state(path=str(session_file))

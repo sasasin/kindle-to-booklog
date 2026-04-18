@@ -5,7 +5,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from kindle_to_booklog.kindle import load_asins_from_sqlite_path, load_asins_from_xml_path, parse_purchase_date
+from kindle_to_booklog.kindle import (
+    load_asins_from_sqlite_path,
+    load_asins_from_xml_path,
+    parse_purchase_date,
+)
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
 

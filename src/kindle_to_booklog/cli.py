@@ -3,7 +3,10 @@ import sys
 from playwright.sync_api import sync_playwright
 
 from kindle_to_booklog.booklog import add_books_to_booklog
-from kindle_to_booklog.kindle import get_asin_list_from_kindle_sqlite_db, get_asin_list_from_kindle_xml
+from kindle_to_booklog.kindle import (
+    get_asin_list_from_kindle_sqlite_db,
+    get_asin_list_from_kindle_xml,
+)
 
 
 def main() -> int:

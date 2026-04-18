@@ -125,12 +125,16 @@ class BooklogTests(unittest.TestCase):
 
             add_books_to_booklog(
                 ["B000000001", "B000000002"],
-                playwright_factory=lambda: FakePlaywrightManager(FakePlaywright(chromium)),
+                playwright_factory=lambda: FakePlaywrightManager(
+                    FakePlaywright(chromium)
+                ),
                 session_file=session_file,
                 browser_channel="msedge",
             )
 
-            self.assertEqual(chromium.launch_calls, [{"headless": False, "channel": "msedge"}])
+            self.assertEqual(
+                chromium.launch_calls, [{"headless": False, "channel": "msedge"}]
+            )
             self.assertEqual(
                 browser.new_context_calls,
                 [
@@ -160,12 +164,23 @@ class BooklogTests(unittest.TestCase):
 
             add_books_to_booklog(
                 ["B000000009"],
-                playwright_factory=lambda: FakePlaywrightManager(FakePlaywright(chromium)),
+                playwright_factory=lambda: FakePlaywrightManager(
+                    FakePlaywright(chromium)
+                ),
                 session_file=session_file,
             )
 
-            self.assertEqual(page.goto_calls, ["https://booklog.jp/input", "https://booklog.jp/input"])
-            self.assertEqual(page.waited_urls, [("https://booklog.jp/input", 300_000), ("https://booklog.jp/input", None)])
+            self.assertEqual(
+                page.goto_calls,
+                ["https://booklog.jp/input", "https://booklog.jp/input"],
+            )
+            self.assertEqual(
+                page.waited_urls,
+                [
+                    ("https://booklog.jp/input", 300_000),
+                    ("https://booklog.jp/input", None),
+                ],
+            )
             self.assertEqual(context.storage_state_paths, [str(session_file)])
 
 
