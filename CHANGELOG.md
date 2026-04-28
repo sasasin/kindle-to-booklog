@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.0.8](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.7...v0.0.8) - 2026-04-28
+- Update astral-sh/setup-uv action to v8 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/46
+- Update actions/github-script action to v9 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/45
+- Update astral-sh/setup-uv action to v8.1.0 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/48
+- Add CLI help support for direct uv tool installation by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/49
+
 ## [v0.0.7](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.6...v0.0.7) - 2026-04-18
 - Add minimal workflow permissions to test job by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/37
 - Update GitHub Actions to pinned action versions by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/40
