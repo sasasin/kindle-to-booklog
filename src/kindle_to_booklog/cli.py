@@ -1,4 +1,7 @@
+import argparse
 import sys
+from collections.abc import Sequence
+from importlib.metadata import version
 
 from playwright.sync_api import sync_playwright
 
@@ -9,7 +12,22 @@ from kindle_to_booklog.kindle import (
 )
 
 
-def main() -> int:
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="kindle-to-booklog",
+        description="Register recently purchased Kindle books on Booklog.",
+    )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"%(prog)s {version('kindle-to-booklog')}",
+    )
+    return parser
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    build_parser().parse_args(argv)
+
     if sys.platform == "win32":
         asin_list = get_asin_list_from_kindle_xml()
     elif sys.platform == "darwin":
