@@ -1,5 +1,12 @@
 # Changelog
 
+## [v0.0.9](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.8...v0.0.9) - 2026-06-18
+
+- Update Songmu/tagpr digest to e84001b by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/50
+- Update actions/checkout action to v6.0.3 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/51
+- Update astral-sh/setup-uv action to v8.2.0 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/52
+- Support new Windows Kindle app metadata path by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/54
+
 ## [v0.0.8](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.7...v0.0.8) - 2026-04-28
 - Update astral-sh/setup-uv action to v8 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/46
 - Update actions/github-script action to v9 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/45
