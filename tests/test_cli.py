@@ -11,7 +11,9 @@ from kindle_to_booklog import cli
 class CliTests(unittest.TestCase):
     def test_help_exits_before_reading_kindle_data(self) -> None:
         with (
-            patch("kindle_to_booklog.cli.get_asin_list_from_kindle_xml") as get_xml,
+            patch(
+                "kindle_to_booklog.cli.get_asin_list_from_kindle_windows_app_xml"
+            ) as get_xml,
             patch("kindle_to_booklog.cli.add_books_to_booklog") as add_books,
             redirect_stdout(io.StringIO()) as stdout,
         ):
@@ -28,7 +30,7 @@ class CliTests(unittest.TestCase):
         with (
             patch("kindle_to_booklog.cli.sys.platform", "win32"),
             patch(
-                "kindle_to_booklog.cli.get_asin_list_from_kindle_xml",
+                "kindle_to_booklog.cli.get_asin_list_from_kindle_windows_app_xml",
                 return_value=["B1", "B2"],
             ) as get_xml,
             patch("kindle_to_booklog.cli.add_books_to_booklog") as add_books,

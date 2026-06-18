@@ -58,6 +58,19 @@ def get_asin_list_from_kindle_xml() -> list[str]:
     return load_asins_from_xml_path(kindle_xml_path)
 
 
+# for Windows Kindle app distributed from Microsoft Store
+def get_asin_list_from_kindle_windows_app_xml() -> list[str]:
+    localappdata = os.environ.get("LOCALAPPDATA")
+    if not localappdata:
+        raise RuntimeError("LOCALAPPDATA is not set")
+
+    kindle_xml_path = (
+        Path(localappdata)
+        / "Packages/AMZNKindle.AmazonKindleReadingApp_m1sc522ngdk36/LocalState/Classic/Data/Cache/KindleSyncMetadataCache.xml"
+    )
+    return load_asins_from_xml_path(kindle_xml_path)
+
+
 def load_asins_from_sqlite_path(kindle_sqlite_path: Path) -> list[str]:
     database = sqlite3.connect(kindle_sqlite_path)
     try:
