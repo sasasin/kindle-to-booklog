@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.0.10](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.9...v0.0.10) - 2026-06-28
+
+- Update actions/checkout action to v7 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/55
+- Update actions/setup-python action to v6.3.0 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/57
+
 ## [v0.0.9](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.8...v0.0.9) - 2026-06-18
 
 - Update Songmu/tagpr digest to e84001b by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/50
