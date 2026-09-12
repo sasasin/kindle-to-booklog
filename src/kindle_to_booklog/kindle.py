@@ -64,19 +64,6 @@ def load_asins_from_xml_path(kindle_xml_path: Path) -> list[str]:
     return [asin for _, asin in filtered_books]
 
 
-# for Windows Kindle app
-def get_asin_list_from_kindle_xml() -> list[str]:
-    userprofile = os.environ.get("USERPROFILE")
-    if not userprofile:
-        raise RuntimeError("USERPROFILE is not set")
-
-    kindle_xml_path = (
-        Path(userprofile)
-        / "AppData/Local/Amazon/Kindle/Cache/KindleSyncMetadataCache.xml"
-    )
-    return load_asins_from_xml_path(kindle_xml_path)
-
-
 # for Windows Kindle app distributed from Microsoft Store
 def get_asin_list_from_kindle_windows_app_xml() -> list[str]:
     localappdata = os.environ.get("LOCALAPPDATA")

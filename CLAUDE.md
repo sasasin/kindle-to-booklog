@@ -38,7 +38,7 @@ uv run --group dev coverage xml
 処理フローは以下の3ステップ:
 
 1. **Kindle から ASIN リストを取得** — OS によって異なる2つの実装がある:
-   - Windows: `get_asin_list_from_kindle_xml()` — Kindle アプリのキャッシュ XML (`KindleSyncMetadataCache.xml`) をパース
+   - Windows: `get_asin_list_from_kindle_windows_app_xml()` — Kindle アプリのキャッシュ XML (`KindleSyncMetadataCache.xml`) をパース
    - macOS: `get_asin_list_from_kindle_sqlite_db()` — Kindle アプリの SQLite DB (`BookData.sqlite`) を `sqlite3` で読み込む
    - 取得対象は購入日の新しい順に最大99冊
 
