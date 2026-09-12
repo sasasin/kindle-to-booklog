@@ -47,6 +47,30 @@ class CliTests(unittest.TestCase):
         self.assertIn("2", stdout.getvalue())
         self.assertIn("B1\nB2", stdout.getvalue())
 
+    def test_main_uses_web_source_regardless_of_platform(self) -> None:
+        fake_factory = object()
+        with (
+            patch("kindle_to_booklog.cli.sys.platform", "linux"),
+            patch(
+                "kindle_to_booklog.cli.get_asin_list_from_kindle_web",
+                return_value=["B1", "B2"],
+            ) as get_web,
+            patch(
+                "kindle_to_booklog.cli.get_asin_list_from_kindle_windows_app_xml"
+            ) as get_xml,
+            patch("kindle_to_booklog.cli.add_books_to_booklog") as add_books,
+            patch("kindle_to_booklog.cli.sync_playwright", fake_factory),
+            redirect_stdout(io.StringIO()) as stdout,
+        ):
+            result = cli.main(["--web"])
+
+        self.assertEqual(result, 0)
+        get_web.assert_called_once_with(playwright_factory=fake_factory)
+        get_xml.assert_not_called()
+        add_books.assert_called_once()
+        self.assertEqual(add_books.call_args.args[0], ["B1", "B2"])
+        self.assertIn("2", stdout.getvalue())
+
     def test_main_rejects_unsupported_platform(self) -> None:
         with patch("kindle_to_booklog.cli.sys.platform", "linux"):
             with self.assertRaisesRegex(RuntimeError, "unsupported platform: linux"):

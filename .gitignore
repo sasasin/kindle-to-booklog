@@ -21,3 +21,6 @@ dist/
 
 # Booklog session (contains auth cookies)
 session.json
+
+# Kindle for Web session (contains Amazon auth cookies)
+amazon-session.json

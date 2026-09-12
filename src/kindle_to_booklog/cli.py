@@ -8,6 +8,7 @@ from playwright.sync_api import sync_playwright
 from kindle_to_booklog.booklog import add_books_to_booklog
 from kindle_to_booklog.kindle import (
     get_asin_list_from_kindle_sqlite_db,
+    get_asin_list_from_kindle_web,
     get_asin_list_from_kindle_windows_app_xml,
 )
 
@@ -22,13 +23,20 @@ def build_parser() -> argparse.ArgumentParser:
         action="version",
         version=f"%(prog)s {version('kindle-to-booklog')}",
     )
+    parser.add_argument(
+        "--web",
+        action="store_true",
+        help="obtain the Kindle library from Kindle for Web",
+    )
     return parser
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    build_parser().parse_args(argv)
+    args = build_parser().parse_args(argv)
 
-    if sys.platform == "win32":
+    if args.web:
+        asin_list = get_asin_list_from_kindle_web(playwright_factory=sync_playwright)
+    elif sys.platform == "win32":
         asin_list = get_asin_list_from_kindle_windows_app_xml()
     elif sys.platform == "darwin":
         asin_list = get_asin_list_from_kindle_sqlite_db()

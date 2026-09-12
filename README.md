@@ -49,6 +49,18 @@ $ BROWSER_CHANNEL=msedge kindle-to-booklog
 
 セッションの有効期限が切れた場合は、再度ログインページが表示されます。同様に手動でログインしてください。
 
+## Kindle for Web を使う場合
+
+Linux など Kindle デスクトップアプリに対応していない環境では、`--web` を指定すると Kindle for Web のライブラリから直近99冊を取得できます。Windows/macOS でもこのオプションを指定すれば Kindle for Web を使用します。
+
+```
+$ kindle-to-booklog --web
+```
+
+初回実行時、または Amazon のセッションが切れた場合は、表示されたブラウザで Amazon に手動ログインしてください。CAPTCHA や MFA が表示された場合もブラウザ上で完了します。ログイン後の認証状態は `amazon-session.json` に保存され、次回以降は有効な間は再利用されます。このファイルには認証情報が含まれるため、保護し、共有・コミットしないでください（`.gitignore` で除外されています）。
+
+Web モードでは Kindle for Web の非公開・内部的な検索エンドポイントを利用しています。Amazon の公開APIではなく、将来仕様変更や利用不能になる可能性があります。
+
 # テスト
 
 ローカルの Kindle XML / SQLite や `booklog.jp` に依存しないテストを `tests/` に用意しています。fixture の XML と SQL、Playwright のフェイク実装を使うので、オフラインでも実行できます。
