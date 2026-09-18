@@ -1,5 +1,20 @@
 # Changelog
 
+## [v0.0.10](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.9...v0.0.10) - 2026-09-18
+
+- Update actions/checkout action to v7 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/55
+- Update actions/setup-python action to v6.3.0 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/57
+- Update astral-sh/setup-uv action to v8.3.1 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/58
+- Update astral-sh/setup-uv action to v8.3.2 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/59
+- Update actions/checkout action to v7.0.1 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/62
+- Update astral-sh/setup-uv action to v10 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/64
+- Update actions/setup-python action to v7 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/61
+- Kindle for Web からライブラリを取得できるようにする by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/65
+- Remove the obsolete Windows Kindle XML loader by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/66
+- Update Songmu/tagpr digest to 7ebae2d by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/60
+- Update astral-sh/setup-uv action to v10.1.0 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/67
+- Handle Kindle Web login redirects by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/68
+
 ## [v0.0.9](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.8...v0.0.9) - 2026-06-18
 
 - Update Songmu/tagpr digest to e84001b by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/50
