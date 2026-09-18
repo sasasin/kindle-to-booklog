@@ -114,6 +114,26 @@ def _is_amazon_login_url(url: str) -> bool:
     return bool(_AMAZON_LOGIN_URL_PATTERN.search(url))
 
 
+def _response_url(response: Any) -> str | None:
+    url = getattr(response, "url", None)
+    return url if isinstance(url, str) else None
+
+
+def _wait_for_kindle_web_login(page: Any, *, login_url: str | None = None) -> None:
+    print(
+        "ブラウザで Amazon にログインしてください（CAPTCHA/MFA が表示された場合も手動で完了してください）"
+    )
+    if login_url is not None and not _is_amazon_login_url(page.url):
+        page.goto(login_url)
+    try:
+        page.wait_for_url(
+            _KINDLE_WEB_LIBRARY_URL_PATTERN,
+            timeout=KINDLE_WEB_LOGIN_TIMEOUT_MS,
+        )
+    except Exception as exc:
+        raise RuntimeError("Amazon login did not complete for Kindle for Web") from exc
+
+
 def _search_url_with_pagination_token(url: str, token: str) -> str:
     parsed = urlsplit(url)
     query = dict(parse_qsl(parsed.query, keep_blank_values=True))
@@ -204,18 +224,7 @@ def get_asin_list_from_kindle_web(
                 ) from exc
 
             if _is_amazon_login_url(page.url):
-                print(
-                    "ブラウザで Amazon にログインしてください（CAPTCHA/MFA が表示された場合も手動で完了してください）"
-                )
-                try:
-                    page.wait_for_url(
-                        _KINDLE_WEB_LIBRARY_URL_PATTERN,
-                        timeout=KINDLE_WEB_LOGIN_TIMEOUT_MS,
-                    )
-                except Exception as exc:
-                    raise RuntimeError(
-                        "Amazon login did not complete for Kindle for Web"
-                    ) from exc
+                _wait_for_kindle_web_login(page)
                 context.storage_state(path=str(session_file))
 
             request = getattr(context, "request", None)
@@ -234,6 +243,12 @@ def get_asin_list_from_kindle_web(
                     raise RuntimeError(
                         f"could not retrieve Kindle for Web library response: {page_url}"
                     ) from exc
+
+                response_url = _response_url(response)
+                if response_url is not None and _is_amazon_login_url(response_url):
+                    _wait_for_kindle_web_login(page, login_url=response_url)
+                    context.storage_state(path=str(session_file))
+                    continue
 
                 if not response.ok:
                     raise RuntimeError(

@@ -18,10 +18,18 @@ FIXTURES_DIR = Path(__file__).parent / "fixtures"
 
 
 class FakeWebResponse:
-    def __init__(self, payload: Any, *, ok: bool = True, status: int = 200) -> None:
+    def __init__(
+        self,
+        payload: Any,
+        *,
+        ok: bool = True,
+        status: int = 200,
+        url: str | None = None,
+    ) -> None:
         self.payload = payload
         self.ok = ok
         self.status = status
+        self.url = url
 
     def json(self) -> Any:
         if isinstance(self.payload, Exception):
@@ -30,16 +38,23 @@ class FakeWebResponse:
 
 
 class FakeWebRequest:
-    def __init__(self, responses: dict[str, FakeWebResponse]) -> None:
+    def __init__(
+        self,
+        responses: dict[str, FakeWebResponse | list[FakeWebResponse]],
+    ) -> None:
         self.responses = responses
         self.get_calls: list[str] = []
 
     def get(self, url: str) -> FakeWebResponse:
         self.get_calls.append(url)
-        response = self.responses.get(url)
-        if response is None:
+        response_or_responses = self.responses.get(url)
+        if response_or_responses is None:
             raise AssertionError(f"unexpected request: {url}")
-        return response
+        if isinstance(response_or_responses, list):
+            if len(response_or_responses) > 1:
+                return response_or_responses.pop(0)
+            return response_or_responses[0]
+        return response_or_responses
 
 
 class FakeWebPage:
@@ -281,7 +296,7 @@ class KindleTests(unittest.TestCase):
 
     def test_web_source_saves_session_after_manual_login(self) -> None:
         search_url = "https://example.test/search"
-        request, context, _, manager = self.make_web_client(
+        _, context, _, manager = self.make_web_client(
             {search_url: FakeWebResponse(web_payload([web_item("B1")]))},
             page_url="https://www.amazon.co.jp/ap/signin",
         )
@@ -295,6 +310,34 @@ class KindleTests(unittest.TestCase):
             )
 
         self.assertEqual(asins, ["B1"])
+        self.assertEqual(context.storage_state_paths, [str(session_file)])
+
+    def test_web_source_waits_for_login_when_api_redirects_to_signin(self) -> None:
+        search_url = "https://example.test/search"
+        login_url = "https://www.amazon.co.jp/ap/signin?openid.return_to=kindle"
+        _, context, _, manager = self.make_web_client(
+            {
+                search_url: [
+                    FakeWebResponse(None, url=login_url),
+                    FakeWebResponse(web_payload([web_item("B1")]), url=search_url),
+                ]
+            }
+        )
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            session_file = Path(tmp_dir) / "amazon-session.json"
+            asins = get_asin_list_from_kindle_web(
+                playwright_factory=lambda: manager,
+                session_file=session_file,
+                search_url=search_url,
+            )
+
+        self.assertEqual(asins, ["B1"])
+        self.assertEqual(
+            context.page.goto_calls,
+            ["https://read.amazon.co.jp/kindle-library", login_url],
+        )
+        self.assertEqual(context.page.waited_urls[0][1], 300_000)
         self.assertEqual(context.storage_state_paths, [str(session_file)])
 
     def test_web_source_fails_for_unusable_responses(self) -> None:
