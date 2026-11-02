@@ -6,14 +6,14 @@ workflows:
     '.github/workflows/ruff.yml':
         - 'actions/checkout@v7.0.1'
         - 'actions/github-script@v9.0.0'
-        - 'actions/setup-python@v7.0.0'
+        - 'actions/setup-python@v7.1.0'
         - 'astral-sh/setup-uv@v10.3.3'
     '.github/workflows/tagpr.yml':
         - 'actions/checkout@v7.0.1'
         - 'songmu/tagpr@v1.20.3'
     '.github/workflows/test.yml':
         - 'actions/checkout@v7.0.1'
-        - 'actions/setup-python@v7.0.0'
+        - 'actions/setup-python@v7.1.0'
         - 'actions/upload-artifact@v7.0.2'
         - 'astral-sh/setup-uv@v10.3.3'
     '.github/workflows/verify-lockfile.yml':
@@ -29,9 +29,9 @@ dependencies:
         commit: 'sha1-3a2844b7e9c422d3c10d287c895573f7108da1b3'
         owner_id: 44036562
         repo_id: 205262760
-    'actions/setup-python@v7.0.0':
-        ref: 'v7.0.0'
-        commit: 'sha1-5fda3b95a4ea91299a34e894583c3862153e4b97'
+    'actions/setup-python@v7.1.0':
+        ref: 'v7.1.0'
+        commit: 'sha1-6d4fd22b20465ccc0f7354476588e8df7c9ca0e0'
         owner_id: 44036562
         repo_id: 192625525
     'actions/upload-artifact@v7.0.2':
