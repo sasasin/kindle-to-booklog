@@ -1,5 +1,16 @@
 # Changelog
 
+## [v0.0.11](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.10...v0.0.11) - 2026-11-13
+
+- Update actions/upload-artifact action to v7.0.2 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/71
+- Update astral-sh/setup-uv action to v10.3.0 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/69
+- Update dependency python to 3.15 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/72
+- Add GitHub Actions workflow lockfiles by @sasasin in https://github.com/sasasin/kindle-to-booklog/pull/76
+- Update astral-sh/setup-uv action to v10.3.3 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/74
+- Update actions/setup-python action to v7.1.0 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/75
+- Update Songmu/tagpr action to v1.21.4 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/77
+- Update Songmu/tagpr action to v1.22.0 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/78
+
 ## [v0.0.10](https://github.com/sasasin/kindle-to-booklog/compare/v0.0.9...v0.0.10) - 2026-09-18
 
 - Update actions/checkout action to v7 by @renovate[bot] in https://github.com/sasasin/kindle-to-booklog/pull/55
